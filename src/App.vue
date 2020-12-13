@@ -1,7 +1,26 @@
 <template>
   <div id="app">
     <h1>Problema de Monty Hall</h1>
-    <Door number='1' :hasGift="false"/>
+    <!-- <Door number='1' :hasGift="false"/> -->
+    <div class='form'>
+      <div v-if="!started">
+        <label for='portsAmount'>Quantas Portas?</label>
+        <input type="text" id='portsAmount' size='3' v-model.number='portsAmount'>
+      </div>
+
+      <div v-if="!started">
+        <label for='selectedPort'>Qual é a porta premiada?</label>
+        <input type="text" id='selectedPort' size='3' v-model.number='selectedPort'>
+      </div>
+
+      <button v-if='!started' @click="started = true">Iniciar</button>
+      <button v-if='started' @click="started = false">Reiniciar</button>
+    </div>
+    <div class="doors" v-if='started'>
+      <div v-for="i in portsAmount" :key="i">
+        <Door :hasGift='i === selectedPort' :number='i'/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -10,7 +29,14 @@
 
   export default {
     name: 'App',
-    components: { Door }
+    components: { Door },
+    data: function() {
+      return {
+        started: false,
+        portsAmount: 3,
+        selectedPort: null
+      }
+    }
   }
 </script>
 
@@ -39,5 +65,44 @@
     padding: 20px;
     margin-bottom: 60px;
     margin-top: 10px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .form, .form input, .form button {
+    margin-bottom: 10px;
+    font-size: 2rem;
+  }
+
+  .doors {
+    align-self: stretch;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  button {
+    padding: 10px;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid #0004;
+    transition: 400ms;
+  }
+
+  button:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    border-radius: 6px;
+  }
+
+  .form input {
+    padding-left: 8px;
+    margin-left: 8px;
   }
 </style>
