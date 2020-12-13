@@ -1,13 +1,17 @@
 <template>
   <div id="app">
-    <h1>Hello World</h1>
+    <h1>Problema de Monty Hall</h1>
+    <Gift/>
   </div>
 </template>
 
 <script>
-export default {
+  import Gift from './components/Gift.vue'
 
-}
+  export default {
+    name: 'App',
+    components: { Gift }
+  }
 </script>
 
 <style>
@@ -33,6 +37,7 @@ export default {
     border: 1px solid #000;
     background-color: #0004;
     padding: 20px;
-    margin-bottom: 68px;
+    margin-bottom: 60px;
+    margin-top: 10px;
   }
 </style>
